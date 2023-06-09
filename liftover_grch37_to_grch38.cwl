@@ -12,6 +12,8 @@ inputs:
     type:
       type: array
       items: File
+  output_vcf: 
+    type: string[] 
   query_fasta: File
   query_fasta_fai: File
   ref_fasta: File
@@ -94,24 +96,34 @@ steps:
       text: { default: 'BEGIN{ OFS="\t" }{ if($0 ~ /^#/ || $5 ~ /[,]/){ print $0 }}' }
       file: transanno/vcf_succeeded
       outFileName:
-        valueFrom: ${ return inputs.file.nameroot + "_incl_multi_alt.vcf";}
+        valueFrom: ${ return inputs.file.nameroot + "_multi_alt.vcf";}
     out: [output]
 
   sort_vcf:
     doc: sort vcf 
     run: commands/bcftools-sort.cwl
-    scatter: file
+    scatter: [file, outFileName]
     scatterMethod: dotproduct
     in:
       file: exclude_multiallelic_alt/output
+      outFileName: output_vcf 
     out: [output]
+
+  bgzip_vcf:
+    doc: bgzip output vcf file
+    run: https://raw.githubusercontent.com/nigyta/rice_reseq/master/tools/bgzip-vcf.cwl 
+    scatter: vcf 
+    scatterMethod: dotproduct
+    in:
+      vcf: sort_vcf/output 
+    out: [bgzipped_vcf]
 
 outputs:
   liftover_succeeded:
     type: 
       type: array
       items: File
-    outputSource: sort_vcf/output
+    outputSource: bgzip_vcf/bgzipped_vcf
   transanno_failed:
     type: 
       type: array

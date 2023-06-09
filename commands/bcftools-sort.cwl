@@ -7,9 +7,14 @@ inputs:
     type: File
     inputBinding:
       position: 1
+  outFileName:
+    type: string
+    doc: Out put file name
+    inputBinding:
+      position: 2
 
 outputs:
   output:
     type: stdout
 
-stdout: $(inputs.file.basename).sorted.vcf
+stdout: $(inputs.outFileName)

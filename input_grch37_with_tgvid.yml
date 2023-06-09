@@ -15,6 +15,13 @@ input_vcf:
     path: data/grch37/gem_j_wga/10K.merged.sorted.tgv.vcf.gz
     format: http://edamontology.org/format_3016 # VCF
 
+output_vcf:
+  - jga_ngs.liftover_grch37_38.vcf
+  - jga_snp.liftover_grch37_38.vcf
+  - hgvd.liftover_grch37_38.vcf
+  - tommo_8.3K.liftover_grch37_38.vcf
+  - gem_j_wga.liftover_grch37_38.vcf
+
 chain_file:
   class: File
   location: data/liftover_grch37_38/chain_file/GRCh37_GRCh38_transanno.chain
