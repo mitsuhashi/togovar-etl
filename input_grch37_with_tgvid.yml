@@ -1,0 +1,36 @@
+input_vcf:
+  - class: File
+    path: data/grch37/jga_ngs/JGA-NGS.sorted.tgv.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/grch37/jga_snp/JGA-SNP.sorted.tgv.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/grch37/hgvd/HGVD.TogoVar.extract.id.calcAF.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/grch37/tommo/8.3K.MergeForFreq.tgv.id.only.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/grch37/gem_j_wga/10K.merged.sorted.tgv.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+
+chain_file:
+  class: File
+  location: data/liftover_grch37_38/chain_file/GRCh37_GRCh38_transanno.chain
+
+query_fasta:
+  class: File
+  location: data/grch38/reference_genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa
+
+query_fasta_fai:
+  class: File
+  location: data/grch38/reference_genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa.fai
+
+ref_fasta:
+  class: File
+  location: data/grch37/reference_genome/Homo_sapiens.GRCh37.dna.primary_assembly.fa
+
+ref_fasta_fai:
+  class: File
+  location: data/grch37/reference_genome/Homo_sapiens.GRCh37.dna.primary_assembly.fa.fai
