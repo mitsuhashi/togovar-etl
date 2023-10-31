@@ -1,0 +1,2 @@
+ class: DockerRequirement
+ dockerPull: quay.io/biocontainers/ensembl-vep:109.3--pl5321h2a3209d_1
