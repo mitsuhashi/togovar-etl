@@ -1,0 +1,11 @@
+in_tsv_dir:
+  class: Directory
+  path: data/public/downloads/release/20231027/grch38/frequency/tsv
+
+include_pattern: _frequency.tsv.gz$
+
+exclude_files: []
+
+vcf_header_file:
+  class: File
+  location: data/original/grch38/downloads/vcf_header_line.vcf
