@@ -1,0 +1,16 @@
+vcf_dir:
+  class: Directory
+  path: data/original/grch37/vep/2023.1/vcf
+vcf_include_pattern: .vcf.gz$
+vcf_exclude_files: []
+
+split_variants_per_file: 1000000
+
+suffix_length: 4
+
+vcf_header_file:
+  class: File
+  location: data/original/grch37/vep/vcf_header/vcf_header_line.vcf
+
+query_format: "%CHROM\t%POS\t%ID\t%REF\t%ALT\n"
+

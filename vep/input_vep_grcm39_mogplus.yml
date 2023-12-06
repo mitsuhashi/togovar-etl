@@ -1,0 +1,11 @@
+vcf_dir:
+  class: Directory
+  path: ../data/original/grcm39/mogplus 
+vcf_include_pattern: .vcf.gz$
+vcf_exclude_files: []
+
+split_variants_per_file: 1000000
+
+vcf_header_file:
+  class: File
+  location: data/original/grcm39/vep/vcf_header/vep_header_line_mogplus.vcf
