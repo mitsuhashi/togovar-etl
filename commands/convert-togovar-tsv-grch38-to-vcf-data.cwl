@@ -72,8 +72,7 @@ requirements:
             tommo = make_dataset_info("TOMMO", row[19:23])
             hgvd = make_dataset_info("HGVD", row[23:27])
             gem_j_wga = make_dataset_info("GEM_J_WGA", row[27:31])
-            gnomad_exomes = make_dataset_info("GNOMAD_EXOMES", row[31:35])
-            gnomad_genomes = make_dataset_info("GNOMAD_GENOMES", row[35:39])
+            gnomad_genomes = make_dataset_info("GNOMAD_GENOMES", row[31:35])
 
             info = []
             for info_element in [rs_id, gene_symbol, jga_ngs, jga_snp, tommo, gem_j_wga, gnomad_genomes]:

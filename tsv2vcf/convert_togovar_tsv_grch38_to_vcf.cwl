@@ -18,7 +18,7 @@ inputs:
 steps:
   get_tsv_gz_files:
     doc: 
-    run: ./commands/get-files.cwl
+    run: ../commands/get-files.cwl
     in:
       in_dir: in_tsv_dir
       include_pattern: include_pattern
@@ -27,7 +27,7 @@ steps:
 
   convert_togovar_tsv_to_vcf_data:
     doc: convert togovar tsv to vcf data
-    run: commands/convert-togovar-tsv-grch38-to-vcf-data.cwl
+    run: ../commands/convert-togovar-tsv-grch38-to-vcf-data.cwl
     scatter: tsv_gz_file
     scatterMethod: dotproduct
     in:
@@ -38,7 +38,7 @@ steps:
 
   cat_header_body:
     doc: cat VCF header and body
-    run: ./commands/cat.cwl 
+    run: ../commands/cat.cwl 
     scatter: tail_file
     scatterMethod: dotproduct
     in:
@@ -50,7 +50,7 @@ steps:
 
   sort_vcf:
     doc: sort vcf
-    run: commands/bcftools-sort.cwl
+    run: ../commands/bcftools-sort.cwl
     scatter: file
     scatterMethod: dotproduct
     in:
@@ -68,9 +68,23 @@ steps:
       vcf: sort_vcf/output 
     out: [bgzipped_vcf]
 
+  tabix_vcf:
+    doc: tabix output vcf file
+    run: ./commands/tabix.cwl
+    scatter: vcf_gz
+    scatterMethod: dotproduct
+    in:
+      vcf_gz: bgzip_vcf/bgzipped_vcf
+    out: [tbi]
+
 outputs:
   biallelic_vcf:
-    type: 
+    type:
       type: array
       items: File
     outputSource: bgzip_vcf/bgzipped_vcf
+  biallelic_vcf_tbi:
+    type:
+      type: array
+      items: File
+    outputSource: tabix_vcf/tbi
