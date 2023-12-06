@@ -2,18 +2,12 @@
 cwlVersion: v1.2
 class: CommandLineTool
 
-id: tabix-vcf
-label: tabix-vcf
-
-hints:
-  DockerRequirement:
-    dockerPull: quay.io/biocontainers/tabix:1.11--hdfd78af_0
 requirements:
   InitialWorkDirRequirement:
     listing:
       - $(inputs.vcf_gz)
 
-baseCommand: [tabix, -f]
+baseCommand: ["tabix", "-f"]
 
 inputs:
   vcf_gz:
@@ -25,5 +19,4 @@ outputs:
   tbi:
     type: File
     outputBinding:
-#      glob: "$(inputs.vcf_gz.basename).tbi"
-      glob: "*.tbi"
+      glob: "$(inputs.vcf_gz.basename).tbi"
