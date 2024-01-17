@@ -55,6 +55,19 @@ steps:
         valueFrom: ${ return inputs.file.nameroot + "_upper_ref_alt.vcf";} 
     out: [output]
 
+  collect_irregular_ref_alt:
+    doc: collect irregular ref or alt variant letters
+    run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/awk.cwl
+    scatter: file
+    scatterMethod: dotproduct
+    in:
+      F: { default: "\t" }
+      text: { default: 'BEGIN{ OFS="\t" }{ $4 = toupper($4); $5 = toupper($5); if($0 !~ /^#/ && ($4 !~ /^[ATGC]+$/ || $5 !~ /^[ATGC]+$/)){ print $0 }}' }
+      file: fix_mt_length_in_vcf/output
+      outFileName:
+        valueFrom: ${ return inputs.file.nameroot + "_irregular_ref_alt.vcf";}
+    out: [output]
+
   transanno:
     doc: liftover from GRCh37 to GRCh38 by transanno liftvcf command
     run: commands/transanno-liftvcf.cwl
@@ -134,3 +147,8 @@ outputs:
       type: array
       items: File
     outputSource: collect_multiallelic_alt/output
+  transanno_irregular_ref_alt:
+    type: 
+      type: array
+      items: File
+    outputSource: collect_irregular_ref_alt/output
