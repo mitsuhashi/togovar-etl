@@ -49,7 +49,7 @@ steps:
     scatterMethod: dotproduct
     in:
       F: { default: "\t" }
-      text: { default: 'BEGIN{ OFS="\t" }{ $4 = toupper($4); $5 = toupper($5); if($0 ~ /^#/ || ($4 ~ /^[ATGC]+$/ && $5 ~ /^[ATGC]+$/)){ print $0 }}' }
+      text: { default: 'BEGIN{ OFS="\t" }{ if($0 ~ /^#/ || ($4 ~ /^[ATGC]+$/ && $5 ~ /^[ATGC]+$/)){ print $0 }}' }
       file: fix_mt_length_in_vcf/output
       outFileName: 
         valueFrom: ${ return inputs.file.nameroot + "_upper_ref_alt.vcf";} 
@@ -62,7 +62,7 @@ steps:
     scatterMethod: dotproduct
     in:
       F: { default: "\t" }
-      text: { default: 'BEGIN{ OFS="\t" }{ $4 = toupper($4); $5 = toupper($5); if($0 !~ /^#/ && ($4 !~ /^[ATGC]+$/ || $5 !~ /^[ATGC]+$/)){ print $0 }}' }
+      text: { default: 'BEGIN{ OFS="\t" }{ if($0 !~ /^#/ && ($4 !~ /^[ATGC]+$/ || $5 !~ /^[ATGC]+$/)){ print $0 }}' }
       file: fix_mt_length_in_vcf/output
       outFileName:
         valueFrom: ${ return inputs.file.nameroot + "_irregular_ref_alt.vcf";}

@@ -14,6 +14,9 @@ input_vcf:
   - class: File
     path: data/grch37/gem_j_wga/10K.merged.sorted.tgv.vcf.gz
     format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/grch37/mgend/download/MGeND_hg19_VCF.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
 
 output_vcf:
   - jga_ngs.liftover_grch37_38.vcf
@@ -21,6 +24,7 @@ output_vcf:
   - hgvd.liftover_grch37_38.vcf
   - tommo_8.3K.liftover_grch37_38.vcf
   - gem_j_wga.liftover_grch37_38.vcf
+  - mgend.liftover_grch37_38.vcf
 
 chain_file:
   class: File
