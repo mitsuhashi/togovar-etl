@@ -5,7 +5,7 @@ class: CommandLineTool
 #  - $import: transanno-docker.yml
 # - $import: transanno-transanno.yml
 
-baseCommand: ["transanno", "liftvcf"]
+baseCommand: ["transanno", "liftvcf", "--no-left-align-chain"]
 inputs:
   chain_file:
     type: File
