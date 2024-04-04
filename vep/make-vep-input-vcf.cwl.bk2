@@ -101,6 +101,17 @@ steps:
       vcf_gz: bgzip_vcf/bgzipped_vcf
     out: [tbi]
 
+  sort_vcf:
+    doc: sort vcf body
+    run: commands/bcftools-sort.cwl
+    scatter: file
+    scatterMethod: dotproduct
+    in:
+      file: bgzip_vcf/bgzipped_vcf
+      outFileName:
+        valueFrom: ${ return inputs.file.nameroot + ".vcf.gz";}
+    out: [output]
+
 outputs:
   biallelic_vcf:
     type: 

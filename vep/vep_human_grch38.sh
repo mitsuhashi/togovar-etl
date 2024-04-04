@@ -2,14 +2,14 @@
 
 set -eu
 
-ENS_VERSION=110
+ENS_VERSION=111
 REF_VERSION=GRCh38
 #CACHE_DIR=/mnt/nas05/togovar/original/grch38/vep/2023.1/cache/
 CACHE_DIR=./vep_cache/
 #FASTA_DIR=/mnt/nas05/togovar/original/grch38/reference_genome/
 FASTA_DIR=./vep_cache/reference_genome/
 FASTA_FILE=Homo_sapiens.GRCh37.dna.primary_assembly.fa
-DOCKER_IMAGE=ensemblorg/ensembl-vep:release_110.1
+DOCKER_IMAGE=ensemblorg/ensembl-vep:release_111.0
 
 function docker_run(){
 
@@ -39,6 +39,8 @@ docker run \
    --hgvs \
    --hgvsg \
    --merged \
+   --mane \
+   --flag_pick \
    --sift b --polyphen b \
    --regulatory --distance 0 \
    --check_existing \
@@ -80,10 +82,10 @@ function run_for_gnomad_vcf(){
 
 
 function run_for_clinvar_vcf(){
-  IN_DIR="/mnt/nas05/togovar/original/grch38/clinvar/2023.1/"
+  IN_DIR="/mnt/nas05/togovar/original/grch38/clinvar/2023.2/"
   IN_VCF="clinvar"
   IN_VCF_EXT="vcf.gz"
-  OUT_DIR="/mnt/nas05/togovar/original/grch38/vep/2023.1/json"
+  OUT_DIR="/mnt/nas05/togovar/original/grch38/vep/2023.2/json"
 
   start_date=`date`
   echo "start $IN_VCF at $start_date"

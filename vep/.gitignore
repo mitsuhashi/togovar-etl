@@ -1,0 +1,7 @@
+cache*/
+logs/
+*.log
+vep_cache/
+json
+nohup_logs
+trash

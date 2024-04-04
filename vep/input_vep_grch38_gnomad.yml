@@ -1,10 +1,10 @@
 vcf_dir:
   class: Directory
-  path: ../data/original/grch38/gnomad/3.1.2/noinfo 
+  path: ../data/original/grch38/gnomad/4.0/noinfo
 vcf_include_pattern: .vcf.bgz$
 vcf_exclude_files: []
 
-split_variants_per_file: 1000000
+split_variants_per_file: 100000
 
 suffix_length: 4
 

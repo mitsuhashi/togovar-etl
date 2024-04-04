@@ -47,8 +47,10 @@ docker run \
 }
 
 function run_for_mogplus_vcf(){
-  IN_DIR="/mnt/nas05/togovar/original/grcm39/vep/vcf"
-  IN_VCF="mogplus_vcf_v2_snp_74"
+#  IN_DIR="/mnt/nas05/togovar/original/grcm39/vep/vcf"
+#  IN_VCF="mogplus_vcf_v2_snp_74"
+  IN_DIR="/mnt/nas05/togovar/original/grcm39/mogplus"
+  IN_VCF="mogplus_vcf_v2_snp"
   IN_VCF_EXT="vcf.gz"
   OUT_DIR="/mnt/nas05/togovar/original/grcm39/vep/json"
 

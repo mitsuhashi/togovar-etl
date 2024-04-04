@@ -1,0 +1,16 @@
+vcf_dir:
+  class: Directory
+  path: data/original/grch37/bbj_riken//tgv_assign
+vcf_include_pattern: bbj_riken.grch37.tgv.vcf.gz$
+vcf_exclude_files: []
+
+split_variants_per_file: 100000
+
+suffix_length: 4
+
+vcf_header_file:
+  class: File
+  location: data/original/grch37/vep/vcf_header/vcf_header_line.vcf
+
+query_format: "%CHROM\t%POS\t%ID\t%REF\t%ALT\n"
+
