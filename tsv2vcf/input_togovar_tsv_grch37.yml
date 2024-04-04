@@ -1,6 +1,6 @@
 in_tsv_dir:
   class: Directory
-  path: data/public/downloads/release/20231107/grch37/frequency/tsv
+  path: data/public/downloads/release/tmp/grch37/frequency/tsv
 
     #include_pattern: chr_22_frequency.tsv.gz$
 include_pattern: _frequency.tsv.gz$
