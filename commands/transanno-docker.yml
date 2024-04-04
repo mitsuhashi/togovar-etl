@@ -1,0 +1,2 @@
+ class: DockerRequirement
+ dockerPull: informationsea/transanno:0.4.3

@@ -1,9 +1,8 @@
 cwlVersion: v1.2
 class: CommandLineTool
 
-##hints:
-#  - $import: transanno-docker.yml
-# - $import: transanno-transanno.yml
+#hints:
+#- $import: transanno-docker.yml
 
 baseCommand: ["transanno", "liftvcf", "--no-left-align-chain"]
 inputs:
@@ -19,19 +18,15 @@ inputs:
   query_fasta:
     type: File
     inputBinding:
-      prefix: --new-assembly
-  query_fasta_fai:
-    type: File
-    inputBinding:
-      prefix: --new-assembly-fai
+      prefix: --query
+    secondaryFiles:
+      - .fai
   ref_fasta:
     type: File
     inputBinding:
-      prefix: --original-assembly
-  ref_fasta_fai:
-    type: File
-    inputBinding:
-      prefix: --original-assembly-fai
+      prefix: --reference
+    secondaryFiles:
+      - .fai
   input_vcf:
     type: File
     inputBinding:

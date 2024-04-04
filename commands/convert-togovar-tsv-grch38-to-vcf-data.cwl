@@ -70,12 +70,12 @@ requirements:
             jga_ngs = make_dataset_info("JGA_NGS", row[8:12])
             jga_snp = make_dataset_info_with_genotype_count("JGA_SNP", row[12:19])
             tommo = make_dataset_info("TOMMO", row[19:23])
-            hgvd = make_dataset_info("HGVD", row[23:27])
-            gem_j_wga = make_dataset_info("GEM_J_WGA", row[27:31])
-            gnomad_genomes = make_dataset_info("GNOMAD_GENOMES", row[31:35])
+            gem_j_wga = make_dataset_info("GEM_J_WGA", row[23:27])
+            gnomad_genomes = make_dataset_info("GNOMAD_GENOMES", row[27:31])
+            gnomad_exomes = make_dataset_info("GNOMAD_EXOMES", row[31:35])
 
             info = []
-            for info_element in [rs_id, gene_symbol, jga_ngs, jga_snp, tommo, gem_j_wga, gnomad_genomes]:
+            for info_element in [rs_id, gene_symbol, jga_ngs, jga_snp, tommo, gem_j_wga, gnomad_genomes, gnomad_exomes]:
               if info_element:
                 info.append(";".join(info_element))
             info = ";".join(info)
