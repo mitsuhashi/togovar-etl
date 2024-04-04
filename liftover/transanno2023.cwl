@@ -7,13 +7,13 @@ requirements:
   StepInputExpressionRequirement: {}
 
 inputs:
-  in_vcf_dir: Directory
-  include_pattern: string
   chain_file: File
-  exclude_files:
+  input_vcf:
     type:
       type: array
       items: File
+  output_vcf: 
+    type: string[] 
   query_fasta:
     type: File
     secondaryFiles: [.fai]
@@ -22,15 +22,6 @@ inputs:
     secondaryFiles: [.fai]
 
 steps:
-  get_vcf_gz_files:
-    doc: collect vcf.gz files in dirctory
-    run: ../commands/get-files.cwl
-    in:
-      in_dir: in_vcf_dir
-      include_pattern: include_pattern
-      exclude_files: exclude_files
-    out: [output]
-
   gunzip_vcf:
     doc: unzip input vcf file
     run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/gzip.cwl
@@ -38,20 +29,32 @@ steps:
     scatterMethod: dotproduct
     in:
       d: { default: True }
-      file: get_vcf_gz_files/output
+      file: input_vcf
     out: [output]
 
-  exclude_irregular_ref_alt:
-    doc: filter out variants including letters except A,T,G,and C in REF or ALT
+  fix_mt_length_in_vcf:
+    doc: set length of MT in input vcf as ##contig=<ID=MT,length=16569,assembly=GRCh37>
+    run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/awk.cwl
+    scatter: file
+    scatterMethod: dotproduct
+    in:
+      text: { default: '{ if($0 ~ /^##contig=<ID=MT,/){ print "##contig=<ID=MT,length=16569,assembly=GRCh37>" }else{ print $0 }}' } 
+      file: gunzip_vcf/output
+      outFileName: 
+        valueFrom: ${ return inputs.file.nameroot + "_mt_fixed.vcf";} 
+    out: [output]
+
+  to_upper_ref_alt:
+    doc: convert REF and ALT to upper letter and filter out variants including letters except A,T,G,and C in REF or ALT
     run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/awk.cwl
     scatter: file
     scatterMethod: dotproduct
     in:
       F: { default: "\t" }
       text: { default: 'BEGIN{ OFS="\t" }{ if($0 ~ /^#/ || ($4 ~ /^[ATGC]+$/ && $5 ~ /^[ATGC]+$/)){ print $0 }}' }
-      file: gunzip_vcf/output
-      outFileName:
-        valueFrom: ${ return inputs.file.nameroot + ".vcf";}
+      file: fix_mt_length_in_vcf/output
+      outFileName: 
+        valueFrom: ${ return inputs.file.nameroot + "_upper_ref_alt.vcf";} 
     out: [output]
 
   collect_irregular_ref_alt:
@@ -62,7 +65,7 @@ steps:
     in:
       F: { default: "\t" }
       text: { default: 'BEGIN{ OFS="\t" }{ if($0 !~ /^#/ && ($4 !~ /^[ATGC]+$/ || $5 !~ /^[ATGC]+$/)){ print $0 }}' }
-      file: gunzip_vcf/output
+      file: fix_mt_length_in_vcf/output
       outFileName:
         valueFrom: ${ return inputs.file.nameroot + "_irregular_ref_alt.vcf";}
     out: [output]
@@ -74,11 +77,11 @@ steps:
     scatterMethod: dotproduct
     in:
       chain_file: chain_file
-      input_vcf: exclude_irregular_ref_alt/output
+      input_vcf: to_upper_ref_alt/output
       ref_fasta: ref_fasta
       query_fasta: query_fasta
       succeeded_vcf_filename:
-         valueFrom: ${ return inputs.input_vcf.nameroot + "_transanno_grch37_38.vcf"; }
+         valueFrom: ${ return inputs.input_vcf.nameroot + "_transanno_succeeded.vcf"; }
       failed_vcf_filename: 
          valueFrom: ${ return inputs.input_vcf.nameroot + "_transanno_failed.vcf"; }
     out: [vcf_succeeded, vcf_failed]
@@ -93,7 +96,7 @@ steps:
       text: { default: 'BEGIN{ OFS="\t" }{ if($0 ~ /^#/ || $5 !~ /[,]/){ print $0 }}' }
       file: transanno/vcf_succeeded
       outFileName:
-        valueFrom: ${ return inputs.file.nameroot + ".vcf";}
+        valueFrom: ${ return inputs.file.nameroot + "_excl_multi_alt.vcf";}
     out: [output]
 
   collect_multiallelic_alt:
@@ -109,39 +112,13 @@ steps:
         valueFrom: ${ return inputs.file.nameroot + "_multi_alt.vcf";}
     out: [output]
 
-  swap_aac_with_rrc:
-    doc: swap AAC with RRC in INFO when REF_CHANGED
-    run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/awk.cwl
-    scatter: file
-    scatterMethod: dotproduct
-    in:
-      F: { default: "\t" }
-      text: { default: 'BEGIN{ OFS="\t" }{ if($8 ~ /REF_CHANGED/){ aac_val=substr($8, match($8, /AAC=[0-9]+/), RLENGTH); rrc_val=substr($8, match($8, /RRC=[0-9]+/), RLENGTH); gsub(/AAC=[0-9]+/, "AAC=" substr(rrc_val, 5), $8); gsub(/RRC=[0-9]+/, "RRC=" substr(aac_val, 5), $8); } print $0; }' }
-      file: exclude_multiallelic_alt/output
-      outFileName:
-        valueFrom: ${ return inputs.file.nameroot + ".vcf";}
-    out: [output]
-
-  collect_original_ref_ne_alt_when_ref_changed:
-    doc: collect a variant ORIGINAL_REF != RDF when REF_CHANGED
-    run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/awk.cwl
-    scatter: file
-    scatterMethod: dotproduct
-    in:
-      F: { default: "\t" }
-      text: { default: 'BEGIN{ OFS="\t" }{ if($8 ~ /REF_CHANGED/ && match($8, /ORIGINAL_REF=[^;]+/)){ orig_ref = substr($8, RSTART+13, RLENGTH-13); if ($5 != orig_ref){ print $0; }}}' }
-      file: exclude_multiallelic_alt/output
-      outFileName:
-        valueFrom: ${ return inputs.file.nameroot + "_original_ref_ne_alt_when_ref_changed.vcf";}
-    out: [output]
-
   sort_vcf:
-    doc: sort vcf
+    doc: sort vcf 
     run: commands/bcftools-sort.cwl
     scatter: file
     scatterMethod: dotproduct
     in:
-      file: swap_aac_with_rrc/output
+      file: exclude_multiallelic_alt/output
       outFileName:
         valueFrom: ${ return inputs.file.nameroot + ".vcf";}
     out: [output]
@@ -176,8 +153,3 @@ outputs:
       type: array
       items: File
     outputSource: collect_irregular_ref_alt/output
-  transanno_original_ref_ne_alt_when_ref_changed:
-    type:
-      type: array
-      items: File
-    outputSource: collect_original_ref_ne_alt_when_ref_changed/output

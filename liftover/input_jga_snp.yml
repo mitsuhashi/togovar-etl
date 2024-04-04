@@ -1,0 +1,19 @@
+in_vcf_dir:
+  class: Directory
+  path: data/original/grch37/jga_snp
+
+include_pattern: JGA-SNP.sorted.tgv.mt_len_fixed.vcf.gz$
+
+exclude_files: []
+
+chain_file:
+  class: File
+  location: data/original/liftover_grch37_38/chain_file/GRCh37_GRCh38_transanno.chain
+
+query_fasta:
+  class: File
+  location: data/original/grch38/reference_genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa
+
+ref_fasta:
+  class: File
+  location: data/original/grch37/reference_genome/Homo_sapiens.GRCh37.dna.primary_assembly.fa

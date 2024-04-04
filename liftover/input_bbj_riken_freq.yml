@@ -1,0 +1,20 @@
+in_vcf_dir:
+  class: Directory
+  path: data/at057_rsync/formatted_vcf/GRCh37/bbj_riken
+
+#include_pattern: mpheno1.male.vcf.gz$
+include_pattern: .vcf.gz$
+
+exclude_files: []
+
+chain_file:
+  class: File
+  location: data/original/liftover_grch37_38/chain_file/GRCh37_GRCh38_transanno.chain
+
+query_fasta:
+  class: File
+  location: data/original/grch38/reference_genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa
+
+ref_fasta:
+  class: File
+  location: data/original/grch37/reference_genome/Homo_sapiens.GRCh37.dna.primary_assembly.fa
