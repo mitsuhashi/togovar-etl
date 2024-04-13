@@ -68,7 +68,7 @@ steps:
     out: [output]
 
   transanno:
-    doc: liftover from GRCh37 to GRCh38 by transanno liftvcf command
+    doc: liftover by transanno liftvcf command
     run: commands/transanno-liftvcf.cwl
     scatter: [input_vcf]
     scatterMethod: dotproduct
