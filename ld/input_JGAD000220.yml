@@ -1,0 +1,15 @@
+in_tsv_dir:
+  class: Directory
+  path: data/original/grch38/gaj/JGAD000220/ld
+
+include_pattern: PASS.autosome_PAR_ploidy_2.biallelic.chr1.tsv.gz$
+#include_pattern: .tsv.gz$
+
+exclude_files: []
+
+output_file_prefix: bbj1k
+
+jar_path:
+  class: File
+  path: commands/juicer_tools_1.22.01.jar
+
