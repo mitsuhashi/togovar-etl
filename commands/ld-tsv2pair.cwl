@@ -1,12 +1,12 @@
 class: CommandLineTool
 cwlVersion: v1.2
 
-label: convert-ld-tsv-pear
-doc: This tool converts linkage disequilibrium coefficient data in tsv format to pear format. 
+label: convert-ld-tsv-pair
+doc: This tool converts linkage disequilibrium coefficient data in tsv format to pair format.
 
 hints:
   DockerRequirement:
-    dockerImageId: cwl-ld-tsv2pear:3.9
+    dockerImageId: cwl-ld-tsv2pair:3.9
     dockerFile: |
       # Base Image
       FROM quay.io/biocontainers/python:3.9
@@ -28,7 +28,7 @@ requirements:
   InlineJavascriptRequirement: {}
   InitialWorkDirRequirement:
     listing:
-      - entryname: 'convert-tsv-to-pear.py'
+      - entryname: 'convert-tsv-to-pair.py'
         entry: |
           import sys
           input_file = sys.argv[1]
@@ -72,8 +72,7 @@ outputs:
 
 stdout: $(inputs.output_file)
 
-
-baseCommand: ["python","convert-tsv-to-pear.py"]
+baseCommand: ["python","convert-tsv-to-pair.py"]
 
 $namespaces:
   s: http://schema.org/
