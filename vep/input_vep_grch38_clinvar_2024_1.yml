@@ -1,0 +1,13 @@
+vcf_dir:
+  class: Directory
+  path: data/releases/GRCh38/2024.1/vcf/
+vcf_include_pattern: ClinVarVCVRelease_2024-05.xml.vcf.gz$
+vcf_exclude_files: []
+
+split_variants_per_file: 100000
+
+suffix_length: 4
+
+vcf_header_file:
+  class: File
+  location: data/original/grch38/vep/vcf_header/vcf_header_line.vcf
