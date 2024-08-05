@@ -2,13 +2,13 @@ cwlVersion: v1.2
 class: CommandLineTool
 label: "Convert the Short with score format to .hic format using Juicer Tools"
 id: "juicertools-pre"
-baseCommand: ["java", "-Xms30000m", "-Xmx30000m", "-jar"]
+baseCommand: ["java", "-Xms40000m", "-Xmx40000m", "-jar"]
 
 requirements:
   InlineJavascriptRequirement: {}
   ResourceRequirement:
-    ramMin: 30000 
-    ramMax: 30000 
+    ramMin: 40000 
+    ramMax: 400000 
 
 inputs:
   jar_path:
@@ -49,4 +49,3 @@ outputs:
 
 stdout: output.log
 stderr: error.log
-

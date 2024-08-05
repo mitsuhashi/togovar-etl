@@ -155,12 +155,26 @@ steps:
       vcf: sort_vcf/output 
     out: [bgzipped_vcf]
 
+  tabix_vcf:
+    doc: generate .tbi index for bgzipped vcf file
+    run: commands/tabix.cwl
+    scatter: vcf_gz
+    scatterMethod: dotproduct
+    in:
+      vcf_gz: bgzip_vcf/bgzipped_vcf
+    out: [tbi]
+
 outputs:
   liftover_succeeded:
     type: 
       type: array
       items: File
     outputSource: bgzip_vcf/bgzipped_vcf
+  liftover_succeeded_tbi:
+    type:
+      type: array
+      items: File
+    outputSource: tabix_vcf/tbi
   transanno_failed:
     type: 
       type: array

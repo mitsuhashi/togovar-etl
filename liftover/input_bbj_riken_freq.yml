@@ -1,6 +1,6 @@
 in_vcf_dir:
   class: Directory
-  path: data/at057_rsync/formatted_vcf/GRCh37/bbj_riken
+  path: data/datasets/GRCh37/bbj_riken/vcf
 
 #include_pattern: mpheno1.male.vcf.gz$
 include_pattern: .vcf.gz$

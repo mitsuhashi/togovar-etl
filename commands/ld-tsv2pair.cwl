@@ -4,25 +4,25 @@ cwlVersion: v1.2
 label: convert-ld-tsv-pair
 doc: This tool converts linkage disequilibrium coefficient data in tsv format to pair format.
 
-hints:
-  DockerRequirement:
-    dockerImageId: cwl-ld-tsv2pair:3.9
-    dockerFile: |
-      # Base Image
-      FROM quay.io/biocontainers/python:3.9
+#hints:
+#  DockerRequirement:
+#    dockerImageId: cwl-ld-tsv2pair:3.9
+#    dockerFile: |
+#      # Base Image
+#      FROM quay.io/biocontainers/python:3.9
 
-      # Metadata
-      LABEL base.image="quay.io/biocontainers/python:3.9"
-      LABEL version="1"
-      LABEL software="Python3"
-      LABEL software.version="3.9"
-      LABEL description="Python based docker image"
-      LABEL tags="Python"
+#      # Metadata
+#      LABEL base.image="quay.io/biocontainers/python:3.9"
+#      LABEL version="1"
+#      LABEL software="Python3"
+#      LABEL software.version="3.9"
+#      LABEL description="Python based docker image"
+#      LABEL tags="Python"
 
       # Maintainer
-      MAINTAINER Nobutaka Mitsuhashi
+#      MAINTAINER Nobutaka Mitsuhashi
 
-      USER root
+#      USER root
 
 requirements:
   InlineJavascriptRequirement: {}
@@ -40,10 +40,10 @@ requirements:
                 parts = line.strip().split('\t')
                 str1 = "0"
                 chr1, pos1, _, _ = parts[0].split(':')
-                frag1 = "0"
+                frag1 = parts[0]
                 str2 = "0"
                 chr2, pos2, _, _ = parts[1].split(':')
-                frag2 = "0"
+                frag2 = parts[1] 
                 if(score_type == "R2"):
                   score = parts[2]  # Using R2 as the score
                 elif(score_type == "Dprime"):
