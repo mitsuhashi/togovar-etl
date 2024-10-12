@@ -38,13 +38,13 @@ steps:
     out: [output]
 
   get_chr_pos_ref_alt_from_vcf:
-    doc: 
+    doc: add chr to chromome number and remove columns other than chr, pos, id, ref, alt, filter, qual and info  
     run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/awk.cwl
     scatter: file
     scatterMethod: dotproduct
     in:
       F: { default: "\t" }
-      text: { default: 'BEGIN{ OFS="\t" }{ if($0 !~ /^#/){ print $1 "\t" $2 "\t" $3 "\t" $4 "\t" $5 }}' }
+      text: { default: 'BEGIN{ OFS="\t" }{ if($1 !~ /^chr/){ chr="chr"$1 }else{ chr=$1 } if($0 !~ /^#/){ print chr "\t" $2 "\t" $3 "\t" $4 "\t" $5 "\t.\t.\t." }}' }
       file: gunzip_vcf/output
       outFileName:
         valueFrom: ${ return inputs.file.basename; }
