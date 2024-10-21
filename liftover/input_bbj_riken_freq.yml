@@ -2,7 +2,6 @@ in_vcf_dir:
   class: Directory
   path: data/datasets/GRCh37/bbj_riken/vcf
 
-#include_pattern: mpheno1.male.vcf.gz$
 include_pattern: .vcf.gz$
 
 exclude_files: []
