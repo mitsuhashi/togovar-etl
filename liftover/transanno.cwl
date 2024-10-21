@@ -123,7 +123,7 @@ steps:
     out: [output]
 
   collect_original_ref_ne_alt_when_ref_changed:
-    doc: collect a variant ORIGINAL_REF != RDF when REF_CHANGED
+    doc: collect a variant ORIGINAL_REF != REF when REF_CHANGED
     run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/awk.cwl
     scatter: file
     scatterMethod: dotproduct
