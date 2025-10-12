@@ -1,0 +1,13 @@
+vcf_dir:
+  class: Directory
+  path: ../data/original/grch38/tommo/jsv1/
+vcf_include_pattern: .vcf.gz$
+vcf_exclude_files: []
+
+split_variants_per_file: 10000
+
+suffix_length: 4
+
+vcf_header_file:
+  class: File
+  location: data/original/grch38/vep/vcf_header/vcf_header_line_tommo-jsv1.vcf

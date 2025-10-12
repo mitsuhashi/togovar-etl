@@ -1,6 +1,6 @@
 vcf_dir:
   class: Directory
-  path: data/releases/GRCh37/2024.1/vcf/clinvar
+  path: data/releases/GRCh37/2024.1/vcf/
 vcf_include_pattern: ClinVarVCVRelease_2024-05.xml.vcf.gz$
 vcf_exclude_files: []
 

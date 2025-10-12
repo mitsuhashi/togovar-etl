@@ -1,0 +1,67 @@
+input_vcf:
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_1_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_2_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_3_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_4_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_5_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_6_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_7_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_8_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_9_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_10_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_11_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_12_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_13_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_14_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_15_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_16_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_17_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_8_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_9_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+  - class: File
+    path: data/public/downloads/release/20231116/grch37/frequency/vcf/chr_10_frequency.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+
+
+
+vcf_header_file:
+  class: File
+  location: data/original/grch37/downloads/vcf_header_line.vcf

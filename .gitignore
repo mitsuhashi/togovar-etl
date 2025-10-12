@@ -1,0 +1,15 @@
+archive
+cache*/
+logs/
+*.log
+vep_cache
+toil_logs
+toil_work
+tmp*
+*trash*
+nohup.out
+*.gz*
+foo.*
+*.hic
+*.jar
+*.tsv*

@@ -27,24 +27,27 @@ steps:
       exclude_files: vcf_exclude_files
     out: [output]
 
-  gunzip_vcf:
-    doc: unzip input vcf files
-    run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/gzip.cwl
-    scatter: file
-    scatterMethod: dotproduct
-    in:
-      d: { default: True }
-      file: get_vcf_gz/output
-    out: [output]
-
   remove_unused_fields:
     doc: remove unused fields in info  
     run: ./commands/bcftools-remove-fields.cwl 
     scatter: file
     scatterMethod: dotproduct
     in:
-      file: gunzip_vcf/output
-      removed_fields: { default: '^INFO/CHR2,INFO/END,INFO/SVLEN' }
+      file: get_vcf_gz/output
+      removed_fields: { default: "^INFO/CHR2,INFO/END,INFO/SVLEN" }
+      outFileName:
+        valueFrom: ${ return inputs.file.basename; }
+    out: [output]
+
+  remove_vcf_header:
+    doc: remove vcf header lines
+    run: https://raw.githubusercontent.com/ncbi/cwl-ngs-workflows-cbb/master/tools/basic/awk.cwl
+    scatter: file
+    scatterMethod: dotproduct
+    in:
+      F: { default: "\t" }
+      text: { default: 'BEGIN{ OFS="\t" }{ if($0 !~ /^#/){ print $0 }}' }
+      file: remove_unused_fields/output
       outFileName:
         valueFrom: ${ return inputs.file.basename; }
     out: [output]
@@ -59,7 +62,7 @@ steps:
        additional_suffix:
          valueFrom: ${ return ".vcf"; }
        suffix_length: suffix_length
-       file: remove_unused_fields/output 
+       file: remove_vcf_header/output 
        basename:
          valueFrom: ${ return inputs.file.basename.replace('.vcf','_'); }
     out: [output]

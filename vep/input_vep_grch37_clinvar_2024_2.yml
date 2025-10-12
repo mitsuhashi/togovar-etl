@@ -1,7 +1,7 @@
 vcf_dir:
   class: Directory
-  path: data/releases/GRCh37/2024.1/vcf/clinvar
-vcf_include_pattern: ClinVarVCVRelease_2024-05.xml.vcf.gz$
+  path: data/releases/GRCh37/2024.2/vcf/clinvar
+vcf_include_pattern: ClinVarVCVRelease_2024-10.GRCh37.vcf.gz$
 vcf_exclude_files: []
 
 split_variants_per_file: 100000
@@ -11,3 +11,5 @@ suffix_length: 4
 vcf_header_file:
   class: File
   location: data/original/grch37/vep/vcf_header/vcf_header_line.vcf
+
+#  path: data/releases/GRCh37/2024.2/vcf/clinvar

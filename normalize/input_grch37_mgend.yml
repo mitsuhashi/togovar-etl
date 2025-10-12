@@ -1,0 +1,27 @@
+input_vcf:
+  - class: File
+    path: data/repository/tgv_assign/mgend.grch37.tgv.vcf.gz
+    format: http://edamontology.org/format_3016 # VCF
+
+output_vcf:
+  - mgend.liftover_grch37_38.tgv.vcf
+
+chain_file:
+  class: File
+  location: data/original/liftover_grch37_38/chain_file/hg19_hg38_transanno.chain
+
+query_fasta:
+  class: File
+  location: data/original/grch38/reference_genome/hg38.fa
+
+query_fasta_fai:
+  class: File
+  location: data/original/grch38/reference_genome/hg38.fa.fai
+
+ref_fasta:
+  class: File
+  location: data/original/grch37/reference_genome/hg19.fa
+
+ref_fasta_fai:
+  class: File
+  location: data/original/grch37/reference_genome/hg19.fa.fai
